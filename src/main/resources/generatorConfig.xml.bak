@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+
+	<!-- cmd执行代码 java -jar mybatis-generator-core-1.3.2.jar -configfile generatorConfig.xml 
+		-overwrite -->
+	<classPathEntry location="E:\tools\mysqlTools\mysql-connector-java-5.1.27.jar" />
+<!-- 	<classPathEntry location="E:\work\tom\com.mysql.generator\target\com.mysql.generator-0.0.1-SNAPSHOT.jar" />
+ -->	<context id="context" targetRuntime="MyBatis3">
+		<plugin type="org.mybatis.generator.plugins.DeleteLogicByIdsPlugin" />
+		<plugin type="org.mybatis.generator.plugins.PaginationPlugin" />
+		<!-- 删除代码中带有 代码生成器的注释信息 -->
+		<commentGenerator>
+			<property name="suppressAllComments" value="true" />
+			<property name="suppressDate" value="true" />
+		</commentGenerator>
+
+		<!-- 默认false，把JDBC DECIMAL 和 NUMERIC 类型解析为 Integer true，把JDBC DECIMAL 和 
+			NUMERIC 类型解析为java.math.BigDecimal -->
+		<!-- 竟然不能用 <javaTypeResolver> <property name="forceBigDecimals" value="true" 
+			/> </javaTypeResolver> -->
+
+		<jdbcConnection driverClass="com.mysql.jdbc.Driver"
+			connectionURL="jdbc:mysql://115.28.206.160:3306/erp160?useUnicode=true&amp;characterEncoding=UTF-8"
+			userId="root" password="erp160" />
+
+		<javaModelGenerator targetPackage="com.erp.sjjy.house.model"
+			targetProject="F:\mybatis\java">
+			<property name="trimStrings" value="true" />
+		</javaModelGenerator>
+
+		<sqlMapGenerator targetPackage="mapper" targetProject="F:\mybatis\resources" />
+
+		<javaClientGenerator targetPackage="com.erp.sjjy.house.mapper"
+			targetProject="F:\mybatis\java" type="XMLMAPPER" />
+
+
+		<table schema="erp160" tableName="fee_vou_trace" />
+		<table schema="erp160" tableName="fee_voucher" />
+	</context>
+
+</generatorConfiguration>

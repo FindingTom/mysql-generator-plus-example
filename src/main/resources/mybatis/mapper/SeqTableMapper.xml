@@ -1,0 +1,400 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.erp.sjjy.house.mapper.SeqTableMapper">
+  <resultMap id="BaseResultMap" type="com.erp.sjjy.house.model.SeqTable">
+    <id column="SEQ_NAME" jdbcType="VARCHAR" property="seqName" />
+    <result column="CURRENT_VALUE" jdbcType="BIGINT" property="currentValue" />
+    <result column="INCREMENT" jdbcType="SMALLINT" property="increment" />
+    <result column="REMARK" jdbcType="VARCHAR" property="remark" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    SEQ_NAME, CURRENT_VALUE, INCREMENT, REMARK
+  </sql>
+  <select id="selectByExample" parameterType="com.erp.sjjy.house.model.SeqTableExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from seq_table
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="page != null">
+      limit #{page.pageNum} , #{page.numPerPage}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from seq_table
+    where SEQ_NAME = #{seqName,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from seq_table
+    where SEQ_NAME = #{seqName,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.erp.sjjy.house.model.SeqTableExample">
+    delete from seq_table
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.erp.sjjy.house.model.SeqTable">
+    insert into seq_table (SEQ_NAME, CURRENT_VALUE, INCREMENT, 
+      REMARK)
+    values (#{seqName,jdbcType=VARCHAR}, #{currentValue,jdbcType=BIGINT}, #{increment,jdbcType=SMALLINT}, 
+      #{remark,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.erp.sjjy.house.model.SeqTable">
+    insert into seq_table
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="seqName != null">
+        SEQ_NAME,
+      </if>
+      <if test="currentValue != null">
+        CURRENT_VALUE,
+      </if>
+      <if test="increment != null">
+        INCREMENT,
+      </if>
+      <if test="remark != null">
+        REMARK,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="seqName != null">
+        #{seqName,jdbcType=VARCHAR},
+      </if>
+      <if test="currentValue != null">
+        #{currentValue,jdbcType=BIGINT},
+      </if>
+      <if test="increment != null">
+        #{increment,jdbcType=SMALLINT},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.erp.sjjy.house.model.SeqTableExample" resultType="java.lang.Integer">
+    select count(*) from seq_table
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update seq_table
+    <set>
+      <if test="record.seqName != null">
+        SEQ_NAME = #{record.seqName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.currentValue != null">
+        CURRENT_VALUE = #{record.currentValue,jdbcType=BIGINT},
+      </if>
+      <if test="record.increment != null">
+        INCREMENT = #{record.increment,jdbcType=SMALLINT},
+      </if>
+      <if test="record.remark != null">
+        REMARK = #{record.remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update seq_table
+    set SEQ_NAME = #{record.seqName,jdbcType=VARCHAR},
+      CURRENT_VALUE = #{record.currentValue,jdbcType=BIGINT},
+      INCREMENT = #{record.increment,jdbcType=SMALLINT},
+      REMARK = #{record.remark,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.erp.sjjy.house.model.SeqTable">
+    update seq_table
+    <set>
+      <if test="currentValue != null">
+        CURRENT_VALUE = #{currentValue,jdbcType=BIGINT},
+      </if>
+      <if test="increment != null">
+        INCREMENT = #{increment,jdbcType=SMALLINT},
+      </if>
+      <if test="remark != null">
+        REMARK = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where SEQ_NAME = #{seqName,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.erp.sjjy.house.model.SeqTable">
+    update seq_table
+    set CURRENT_VALUE = #{currentValue,jdbcType=BIGINT},
+      INCREMENT = #{increment,jdbcType=SMALLINT},
+      REMARK = #{remark,jdbcType=VARCHAR}
+    where SEQ_NAME = #{seqName,jdbcType=VARCHAR}
+  </update>
+  <update id="deleteLogicByIds">
+    update seq_table set deleteFlag = #{deleteFlag,jdbcType=INTEGER} where id in  <foreach close=")" collection="ids" index="index" item="item" open="(" separator=",">#{item}</foreach> 
+  </update>
+  <resultMap id="BaseResultMap" type="com.erp.sjjy.house.model.SeqTable">
+    <id column="SEQ_NAME" jdbcType="VARCHAR" property="seqName" />
+    <result column="CURRENT_VALUE" jdbcType="BIGINT" property="currentValue" />
+    <result column="INCREMENT" jdbcType="SMALLINT" property="increment" />
+    <result column="REMARK" jdbcType="VARCHAR" property="remark" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    SEQ_NAME, CURRENT_VALUE, INCREMENT, REMARK
+  </sql>
+  <select id="selectByExample" parameterType="com.erp.sjjy.house.model.SeqTableExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from seq_table
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="page != null">
+      limit #{page.begin} , #{page.length}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from seq_table
+    where SEQ_NAME = #{seqName,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from seq_table
+    where SEQ_NAME = #{seqName,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.erp.sjjy.house.model.SeqTableExample">
+    delete from seq_table
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.erp.sjjy.house.model.SeqTable">
+    insert into seq_table (SEQ_NAME, CURRENT_VALUE, INCREMENT, 
+      REMARK)
+    values (#{seqName,jdbcType=VARCHAR}, #{currentValue,jdbcType=BIGINT}, #{increment,jdbcType=SMALLINT}, 
+      #{remark,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.erp.sjjy.house.model.SeqTable">
+    insert into seq_table
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="seqName != null">
+        SEQ_NAME,
+      </if>
+      <if test="currentValue != null">
+        CURRENT_VALUE,
+      </if>
+      <if test="increment != null">
+        INCREMENT,
+      </if>
+      <if test="remark != null">
+        REMARK,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="seqName != null">
+        #{seqName,jdbcType=VARCHAR},
+      </if>
+      <if test="currentValue != null">
+        #{currentValue,jdbcType=BIGINT},
+      </if>
+      <if test="increment != null">
+        #{increment,jdbcType=SMALLINT},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.erp.sjjy.house.model.SeqTableExample" resultType="java.lang.Integer">
+    select count(*) from seq_table
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update seq_table
+    <set>
+      <if test="record.seqName != null">
+        SEQ_NAME = #{record.seqName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.currentValue != null">
+        CURRENT_VALUE = #{record.currentValue,jdbcType=BIGINT},
+      </if>
+      <if test="record.increment != null">
+        INCREMENT = #{record.increment,jdbcType=SMALLINT},
+      </if>
+      <if test="record.remark != null">
+        REMARK = #{record.remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update seq_table
+    set SEQ_NAME = #{record.seqName,jdbcType=VARCHAR},
+      CURRENT_VALUE = #{record.currentValue,jdbcType=BIGINT},
+      INCREMENT = #{record.increment,jdbcType=SMALLINT},
+      REMARK = #{record.remark,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.erp.sjjy.house.model.SeqTable">
+    update seq_table
+    <set>
+      <if test="currentValue != null">
+        CURRENT_VALUE = #{currentValue,jdbcType=BIGINT},
+      </if>
+      <if test="increment != null">
+        INCREMENT = #{increment,jdbcType=SMALLINT},
+      </if>
+      <if test="remark != null">
+        REMARK = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where SEQ_NAME = #{seqName,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.erp.sjjy.house.model.SeqTable">
+    update seq_table
+    set CURRENT_VALUE = #{currentValue,jdbcType=BIGINT},
+      INCREMENT = #{increment,jdbcType=SMALLINT},
+      REMARK = #{remark,jdbcType=VARCHAR}
+    where SEQ_NAME = #{seqName,jdbcType=VARCHAR}
+  </update>
+  <update id="deleteLogicByIds">
+    update seq_table set deleteFlag = #{deleteFlag,jdbcType=INTEGER} where id in  <foreach close=")" collection="ids" index="index" item="item" open="(" separator=",">#{item}</foreach> 
+  </update>
+</mapper>
